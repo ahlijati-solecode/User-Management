@@ -1,0 +1,6 @@
+/.vs/*
+/UserManagement.Service.Tests/bin*
+/UserManagement.Service.Tests/obj/*
+/bin/*
+/Models/Generated/*
+/obj/*

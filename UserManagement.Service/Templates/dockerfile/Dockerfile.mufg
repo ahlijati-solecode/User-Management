@@ -1,0 +1,72 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
+#For more information, please see https://aka.ms/containercompat
+
+FROM 150.14.6.95:9032/dotnet/aspnet:6.0-focal AS base
+RUN export http_proxy=${PROXY} && export https_proxy=${PROXY} && apt-get update && \
+    apt-get install -yq tzdata && \
+    ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+ENV TZ="Asia/Jakarta"
+
+#RUN useradd -m docker && echo "docker:docker"
+#RUN export http_proxy=${PROXY} && export https_proxy=${PROXY} && apt-get update
+#RUN export http_proxy=${PROXY} && export https_proxy=${PROXY} && apt-get install -y ldap-utils
+COPY ["UserManagement.Service/Libs/ldap-utils_2.4.49.deb", "."]
+COPY ["UserManagement.Service/Libs/libldap-2.4-2_2.4.49.deb", "."]
+COPY ["UserManagement.Service/Libs/libsasl2-2_2.1.27.deb", "."]
+COPY ["UserManagement.Service/Libs/libsasl2-modules-db_2.1.27.deb", "."]
+COPY ["UserManagement.Service/Libs/libdb5.3_5.3.28.deb", "."]
+COPY ["UserManagement.Service/Libs/libldap-common_2.4.49.deb", "."]
+COPY ["UserManagement.Service/Libs/libgssapi3-heimdal_7.7.0.deb", "."]
+
+COPY ["UserManagement.Service/Libs/libroken18-heimdal_7.7.0.deb", "."]
+COPY ["UserManagement.Service/Libs/libasn1-8-heimdal_7.7.0.deb", "."]
+COPY ["UserManagement.Service/Libs/libheimbase1-heimdal_7.7.0.deb", "."]
+COPY ["UserManagement.Service/Libs/libhcrypto4-heimdal_7.7.0.deb", "."]
+COPY ["UserManagement.Service/Libs/libwind0-heimdal_7.7.0.deb", "."]
+COPY ["UserManagement.Service/Libs/libhx509-5-heimdal_7.7.0.deb", "."]
+COPY ["UserManagement.Service/Libs/libkrb5-26-heimdal_7.7.0.deb", "."]
+COPY ["UserManagement.Service/Libs/libheimntlm0-heimdal_7.7.0.deb", "."]
+COPY ["UserManagement.Service/Libs/libsqlite3-0_3.31.1-4_amd64.deb", "."]
+
+RUN apt install ./libdb5.3_5.3.28.deb
+RUN apt install ./libsasl2-modules-db_2.1.27.deb
+RUN apt install ./libsasl2-2_2.1.27.deb
+RUN apt install ./libldap-common_2.4.49.deb
+
+RUN apt install ./libroken18-heimdal_7.7.0.deb
+RUN apt install ./libasn1-8-heimdal_7.7.0.deb
+RUN apt install ./libheimbase1-heimdal_7.7.0.deb
+RUN apt install ./libhcrypto4-heimdal_7.7.0.deb
+RUN apt install ./libwind0-heimdal_7.7.0.deb
+RUN apt install ./libhx509-5-heimdal_7.7.0.deb
+RUN apt install ./libsqlite3-0_3.31.1-4_amd64.deb
+RUN apt install ./libkrb5-26-heimdal_7.7.0.deb
+RUN apt install ./libheimntlm0-heimdal_7.7.0.deb
+
+RUN apt install ./libgssapi3-heimdal_7.7.0.deb
+RUN apt install ./libldap-2.4-2_2.4.49.deb
+RUN apt install ./ldap-utils_2.4.49.deb
+
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM 150.14.6.95:9032/dotnet/sdk:6.0 AS build
+ARG PROXY
+WORKDIR /src
+COPY ["UserManagement.Service/User Management.csproj", "."]
+RUN export http_proxy=${PROXY} && export https_proxy=${PROXY} && dotnet restore "./User Management.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "UserManagement.Service/User Management.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "UserManagement.Service/User Management.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "User Management.dll"]

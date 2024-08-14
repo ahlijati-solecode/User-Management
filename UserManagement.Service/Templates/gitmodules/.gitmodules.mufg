@@ -1,0 +1,4 @@
+[submodule "UserManagement.Service/Shared"]
+	path = UserManagement.Service/Shared
+	url = ../../devsecops/mufg-ens-shared.git
+	branch = development

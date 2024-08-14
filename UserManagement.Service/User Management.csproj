@@ -1,0 +1,316 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>User_Management</RootNamespace>
+		<UserSecretsId>66220091-81c0-49a3-a3e8-0b04caa045c1</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Logs\**" />
+		<Compile Remove="Models\Generated\**" />
+		<Compile Remove="Models\Requests\RoleAccess\**" />
+		<Compile Remove="Shared\**" />
+		<Content Remove="Logs\**" />
+		<Content Remove="Models\Generated\**" />
+		<Content Remove="Models\Requests\RoleAccess\**" />
+		<Content Remove="Shared\**" />
+		<EmbeddedResource Remove="Logs\**" />
+		<EmbeddedResource Remove="Models\Generated\**" />
+		<EmbeddedResource Remove="Models\Requests\RoleAccess\**" />
+		<EmbeddedResource Remove="Shared\**" />
+		<None Remove="Logs\**" />
+		<None Remove="Models\Generated\**" />
+		<None Remove="Models\Requests\RoleAccess\**" />
+		<None Remove="Shared\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Models\Entities\UserDbContext.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="Shared\Helpers\Controllers\BaseLogController.cs" Link="Controllers\BaseLogController.cs" />
+		<Compile Include="Shared\Extensions\StringExtensions.cs" Link="Extensions\StringExtensions.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\User\JwtUserRepository.cs" Link="Infrastructures\Repositories\User\JwtUserRepository.cs" />
+		<Compile Include="Shared\Models\Entities\Custom\ActiveDirectory.cs" Link="Models\Entities\Custom\ActiveDirectory.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\Configurations\IConfigurationRepository.cs" Link="Infrastructures\Repositories\Configurations\IConfigurationRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\Configurations\RestApiConfigurationRepository.cs" Link="Infrastructures\Repositories\Configurations\RestApiConfigurationRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\Core\BaseRestApiRepository.cs" Link="Infrastructures\Repositories\Core\BaseRestApiRepository.cs" />
+		<Compile Include="Models\Requests\RoleAccess\BaseRefUserAccessRequest.cs" />
+		<Compile Include="Models\Requests\RoleAccess\BaseUserAccessRefRequest.cs" />
+		<Compile Include="Models\Requests\RoleAccess\RoleAccessHisotryRequest.cs" />
+		<Compile Include="Models\Requests\RoleAccess\RoleAccessPageRequest.cs" />
+		<Compile Include="Shared\Configurations\AppSettings.cs" Link="Configurations\AppSettings.cs" />
+		<Compile Include="Shared\Configurations\Attributes\AuthorizeAttribute.cs" Link="Configurations\Attributes\AuthorizeAttribute.cs" />
+		<Compile Include="Shared\Constants\ApiConstants.cs" Link="Constants\ApiConstants.cs" />
+		<Compile Include="Shared\Exceptions\ApiKeyInvalidException.cs" Link="Exceptions\ApiKeyInvalidException.cs" />
+		<Compile Include="Shared\Exceptions\DateInvalidException.cs" Link="Exceptions\DateInvalidException.cs" />
+		<Compile Include="Shared\Exceptions\InputRequiredException.cs" Link="Exceptions\InputRequiredException.cs" />
+		<Compile Include="Shared\Extensions\AddRequiredHeaderParameter.cs" Link="Extensions\AddRequiredHeaderParameter.cs" />
+		<Compile Include="Shared\Extensions\AppExtensions.cs" Link="Extensions\AppExtensions.cs" />
+		<Compile Include="Shared\Extensions\ExceptionMiddlewareExtensions.cs" Link="Extensions\ExceptionMiddlewareExtensions.cs" />
+		<Compile Include="Shared\Extensions\LinqExtensions.cs" Link="Extensions\LinqExtensions.cs" />
+		<Compile Include="Shared\Extensions\ServiecsExtensions.cs" Link="Extensions\ServiecsExtensions.cs" />
+		<Compile Include="Shared\Helpers\BaseStartup.cs" Link="Helpers\BaseStartup.cs" />
+		<Compile Include="Shared\Helpers\Controllers\ApiController.cs" Link="Helpers\Controllers\ApiController.cs" />
+		<Compile Include="Shared\Helpers\DbHelper.cs" Link="Helpers\DbHelper.cs" />
+		<Compile Include="Shared\Helpers\HelperEnums\FilterBuilderEnum.cs" Link="Helpers\HelperEnums\FilterBuilderEnum.cs" />
+		<Compile Include="Shared\Helpers\HelperEnums\HttpRequestEnum.cs" Link="Helpers\HelperEnums\HttpRequestEnum.cs" />
+		<Compile Include="Shared\Helpers\HelperModels\FilterBuilderModel.cs" Link="Helpers\HelperModels\FilterBuilderModel.cs" />
+		<Compile Include="Shared\Helpers\RequestTokenHostedService.cs" Link="Helpers\RequestTokenHostedService.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\Activity\IActivityRepository.cs" Link="Infrastructures\Repositories\Activity\IActivityRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\Core\EFBaseRepository.cs" Link="Infrastructures\Repositories\Core\EFBaseRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\EndPoint\EfEndpointRepository.cs" Link="Infrastructures\Repositories\EndPoint\EfEndpointRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\EndPoint\IEndpointRepository.cs" Link="Infrastructures\Repositories\EndPoint\IEndpointRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\IBaseRepository.cs" Link="Infrastructures\Repositories\IBaseRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\IUnitOfWorks.cs" Link="Infrastructures\Repositories\IUnitOfWorks.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\UnitOfWorks.cs" Link="Infrastructures\Repositories\UnitOfWorks.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\User\IUserRepository.cs" Link="Infrastructures\Repositories\User\IUserRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Utils\User\CurrentUserService.cs" Link="Infrastructures\Utils\User\CurrentUserService.cs" />
+		<Compile Include="Shared\Infrastructures\Utils\User\ICurrentUserService.cs" Link="Infrastructures\Utils\User\ICurrentUserService.cs" />
+		<Compile Include="Shared\Middlewares\ApiKeyMiddleware.cs" Link="Middlewares\ApiKeyMiddleware.cs" />
+		<Compile Include="Shared\Middlewares\Exceptions\ExceptionMiddleware.cs" Link="Middlewares\Exceptions\ExceptionMiddleware.cs" />
+		<Compile Include="Shared\Middlewares\JwtMiddleware.cs" Link="Middlewares\JwtMiddleware.cs" />
+		<Compile Include="Shared\Models\Core\Paged.cs" Link="Models\Core\Paged.cs" />
+		<Compile Include="Shared\Models\Core\User.cs" Link="Models\Core\User.cs" />
+		<Compile Include="Shared\Models\Dtos\Core\ActivityDto.cs" Link="Models\Dtos\Core\ActivityDto.cs" />
+		<Compile Include="Shared\Models\Dtos\Core\PagedDto.cs" Link="Models\Dtos\Core\PagedDto.cs" />
+		<Compile Include="Shared\Models\Entities\AuditEntity.cs" Link="Models\Entities\AuditEntity.cs" />
+
+		<Compile Include="Shared\Models\Entities\EntityFramework\Configurations\MdEndpointConfiguration.cs" Link="Models\Entities\EntityFramework\Configurations\MdEndpointConfiguration.cs" />
+		<Compile Include="Shared\Models\Entities\LgActivity.cs" Link="Models\Entities\LgActivity.cs" />
+		<Compile Include="Shared\Models\Entities\MdEndpoint.cs" Link="Models\Entities\MdEndpoint.cs" />
+		<Compile Include="Shared\Models\Entities\MdTask.cs" Link="Models\Entities\MdTask.cs" />
+		<Compile Include="Shared\Models\ErrorDetails.cs" Link="Models\ErrorDetails.cs" />
+		<Compile Include="Shared\Models\Filters\PageFilter.cs" Link="Models\Filters\PageFilter.cs" />
+		<Compile Include="Shared\Models\Filters\ActivityFilter.cs" Link="Models\Filters\ActivityFilter.cs" />
+		<Compile Include="Shared\Models\Requests\ApprovalRequest.cs" Link="Models\Requests\ApprovalRequest.cs" />
+		<Compile Include="Shared\Models\Requests\BasePagedRequest.cs" Link="Models\Requests\BasePagedRequest.cs" />
+		<Compile Include="Shared\Models\Responses\BaseResponse.cs" Link="Models\Responses\BaseResponse.cs" />
+		<Compile Include="Shared\Models\Filters\IFilterStatus.cs" Link="Models\Filters\IFilterStatus.cs" />
+		<Compile Include="Shared\Queries\BaseQueries.cs" Link="Queries\BaseQueries.cs" />
+		<Compile Include="Shared\Models\Entities\TsTaskList.cs" Link="Models\Entities\TsTaskList.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\Task\ITaskRepository.cs" Link="Infrastructures\Repositories\Task\ITaskRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Repositories\Task\TaskRepository.cs" Link="Infrastructures\Repositories\Task\TaskRepository.cs" />
+		<Compile Include="Shared\Infrastructures\Services\ITaskService.cs" Link="Infrastructures\Services\ITaskService.cs" />
+		<Compile Include="Shared\Models\Entities\Configurations\TsTaskListConfigurations.cs" Link="Models\Entities\EntityFramework\Configurations\TsTaskListConfigurations.cs" />
+		<Compile Include="Shared\Models\Dtos\Core\TsTaskListDto.cs" Link="Models\Dtos\Core\TsTaskListDto.cs" />
+
+
+	</ItemGroup>
+
+	<ItemGroup>
+
+
+		<InternalsVisibleTo Include="UserManagement.Service.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Configurations\Attributes\" />
+		<Folder Include="Exceptions\" />
+		<Folder Include="Extensions\" />
+		<Folder Include="Helpers\Controllers\" />
+		<Folder Include="Helpers\HelperEnums\" />
+		<Folder Include="Helpers\HelperModels\" />
+		<Folder Include="Infrastructures\Repositories\EndPoint\" />
+		<Folder Include="Infrastructures\Repositories\Configurations\" />
+		<Folder Include="Infrastructures\Utils\User\" />
+		<Folder Include="Middlewares\Exceptions\" />
+		<Folder Include="Models\Core\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="wwwroot\Templates\Excels\ActivityLogs.xlsx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="NuGet.Build" Version="2.12.1" />
+	  <PackageReference Include="NuGetPowerTools" Version="0.29.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="AutoMapper">
+		  <HintPath>Shared\Cache\Build\AutoMapper.dll</HintPath>
+		</Reference>
+		<Reference Include="AutoMapper.Extensions.Microsoft.DependencyInjection">
+		  <HintPath>Shared\Cache\Build\AutoMapper.Extensions.Microsoft.DependencyInjection.dll</HintPath>
+		</Reference>
+		<Reference Include="BouncyCastle.Crypto">
+		  <HintPath>Shared\Cache\Build\BouncyCastle.Crypto.dll</HintPath>
+		</Reference>
+		<Reference Include="Dapper">
+		  <HintPath>Shared\Cache\Build\Dapper.dll</HintPath>
+		</Reference>
+		<Reference Include="Hangfire.AspNetCore">
+			<HintPath>Shared\Cache\Nuget\hangfire.aspnetcore\1.7.30\lib\netstandard2.0\Hangfire.AspNetCore.dll</HintPath>
+		</Reference>
+		<Reference Include="ICSharpCode.SharpZipLib">
+		  <HintPath>Shared\Cache\Build\ICSharpCode.SharpZipLib.dll</HintPath>
+		</Reference>
+		<Reference Include="MailKit">
+		  <HintPath>Shared\Cache\Build\MailKit.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.AspNetCore.Authentication.JwtBearer">
+		  <HintPath>Shared\Cache\Build\Microsoft.AspNetCore.Authentication.JwtBearer.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.AspNetCore.JsonPatch">
+		  <HintPath>Shared\Cache\Build\Microsoft.AspNetCore.JsonPatch.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson">
+		  <HintPath>Shared\Cache\Build\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.EntityFrameworkCore">
+		  <HintPath>Shared\Cache\Build\Microsoft.EntityFrameworkCore.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.EntityFrameworkCore.Abstractions">
+		  <HintPath>Shared\Cache\Build\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.EntityFrameworkCore.Relational">
+		  <HintPath>Shared\Cache\Build\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.Extensions.DependencyModel">
+		  <HintPath>Shared\Cache\Build\Microsoft.Extensions.DependencyModel.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.Extensions.Http.Polly">
+		  <HintPath>Shared\Cache\Build\Microsoft.Extensions.Http.Polly.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.IdentityModel.JsonWebTokens">
+		  <HintPath>Shared\Cache\Build\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.IdentityModel.Logging">
+		  <HintPath>Shared\Cache\Build\Microsoft.IdentityModel.Logging.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.IdentityModel.Protocols">
+		  <HintPath>Shared\Cache\Build\Microsoft.IdentityModel.Protocols.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect">
+		  <HintPath>Shared\Cache\Build\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.IdentityModel.Tokens">
+		  <HintPath>Shared\Cache\Build\Microsoft.IdentityModel.Tokens.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.OpenApi">
+		  <HintPath>Shared\Cache\Build\Microsoft.OpenApi.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.Win32.SystemEvents">
+		  <HintPath>Shared\Cache\Build\Microsoft.Win32.SystemEvents.dll</HintPath>
+		</Reference>
+		<Reference Include="MimeKit">
+		  <HintPath>Shared\Cache\Build\MimeKit.dll</HintPath>
+		</Reference>
+		<Reference Include="Newtonsoft.Json">
+		  <HintPath>Shared\Cache\Build\Newtonsoft.Json.dll</HintPath>
+		</Reference>
+		<Reference Include="Newtonsoft.Json.Bson">
+		  <HintPath>Shared\Cache\Build\Newtonsoft.Json.Bson.dll</HintPath>
+		</Reference>
+		<Reference Include="Novell.Directory.Ldap.NETStandard">
+		  <HintPath>Shared\Cache\Build\Novell.Directory.Ldap.NETStandard.dll</HintPath>
+		</Reference>
+		<Reference Include="Npgsql">
+		  <HintPath>Shared\Cache\Build\Npgsql.dll</HintPath>
+		</Reference>
+		<Reference Include="Npgsql.EntityFrameworkCore.PostgreSQL">
+		  <HintPath>Shared\Cache\Build\Npgsql.EntityFrameworkCore.PostgreSQL.dll</HintPath>
+		</Reference>
+		<Reference Include="NPOI">
+		  <HintPath>Shared\Cache\Build\NPOI.dll</HintPath>
+		</Reference>
+		<Reference Include="NPOI.OOXML">
+		  <HintPath>Shared\Cache\Build\NPOI.OOXML.dll</HintPath>
+		</Reference>
+		<Reference Include="NPOI.OpenXml4Net">
+		  <HintPath>Shared\Cache\Build\NPOI.OpenXml4Net.dll</HintPath>
+		</Reference>
+		<Reference Include="NPOI.OpenXmlFormats">
+		  <HintPath>Shared\Cache\Build\NPOI.OpenXmlFormats.dll</HintPath>
+		</Reference>
+		<Reference Include="Polly">
+		  <HintPath>Shared\Cache\Build\Polly.dll</HintPath>
+		</Reference>
+		<Reference Include="Polly.Extensions.Http">
+		  <HintPath>Shared\Cache\Build\Polly.Extensions.Http.dll</HintPath>
+		</Reference>
+		<Reference Include="Quartz">
+		  <HintPath>Shared\Cache\Build\Quartz.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog">
+		  <HintPath>Shared\Cache\Build\Serilog.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.AspNetCore">
+		  <HintPath>Shared\Cache\Build\Serilog.AspNetCore.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Extensions.Hosting">
+		  <HintPath>Shared\Cache\Build\Serilog.Extensions.Hosting.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Extensions.Logging">
+		  <HintPath>Shared\Cache\Build\Serilog.Extensions.Logging.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Extensions.Logging.File">
+		  <HintPath>Shared\Cache\Build\Serilog.Extensions.Logging.File.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Formatting.Compact">
+		  <HintPath>Shared\Cache\Build\Serilog.Formatting.Compact.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Settings.Configuration">
+		  <HintPath>Shared\Cache\Build\Serilog.Settings.Configuration.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Sinks.Async">
+		  <HintPath>Shared\Cache\Build\Serilog.Sinks.Async.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Sinks.Console">
+		  <HintPath>Shared\Cache\Build\Serilog.Sinks.Console.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Sinks.Debug">
+		  <HintPath>Shared\Cache\Build\Serilog.Sinks.Debug.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Sinks.File">
+		  <HintPath>Shared\Cache\Build\Serilog.Sinks.File.dll</HintPath>
+		</Reference>
+		<Reference Include="Serilog.Sinks.RollingFile">
+		  <HintPath>Shared\Cache\Build\Serilog.Sinks.RollingFile.dll</HintPath>
+		</Reference>
+		<Reference Include="Swashbuckle.AspNetCore.Annotations">
+		  <HintPath>Shared\Cache\Build\Swashbuckle.AspNetCore.Annotations.dll</HintPath>
+		</Reference>
+		<Reference Include="Swashbuckle.AspNetCore.Swagger">
+		  <HintPath>Shared\Cache\Build\Swashbuckle.AspNetCore.Swagger.dll</HintPath>
+		</Reference>
+		<Reference Include="Swashbuckle.AspNetCore.SwaggerGen">
+		  <HintPath>Shared\Cache\Build\Swashbuckle.AspNetCore.SwaggerGen.dll</HintPath>
+		</Reference>
+		<Reference Include="Swashbuckle.AspNetCore.SwaggerUI">
+		  <HintPath>Shared\Cache\Build\Swashbuckle.AspNetCore.SwaggerUI.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Configuration.ConfigurationManager">
+		  <HintPath>Shared\Cache\Build\System.Configuration.ConfigurationManager.dll</HintPath>
+		</Reference>
+		<Reference Include="System.DirectoryServices">
+		  <HintPath>Shared\Cache\Build\System.DirectoryServices.dll</HintPath>
+		</Reference>
+		<Reference Include="System.DirectoryServices.Protocols">
+		  <HintPath>Shared\Cache\Build\System.DirectoryServices.Protocols.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Drawing.Common">
+		  <HintPath>Shared\Cache\Build\System.Drawing.Common.dll</HintPath>
+		</Reference>
+		<Reference Include="System.IdentityModel.Tokens.Jwt">
+		  <HintPath>Shared\Cache\Build\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Security.Cryptography.ProtectedData">
+		  <HintPath>Shared\Cache\Build\System.Security.Cryptography.ProtectedData.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Security.Permissions">
+		  <HintPath>Shared\Cache\Build\System.Security.Permissions.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Windows.Extensions">
+		  <HintPath>Shared\Cache\Build\System.Windows.Extensions.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+</Project>
